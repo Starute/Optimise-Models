@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# jupyter notebook checkpoint
+.ipynb_checkpoints
+
+# mac 
+.DS_Store
+.AppleDouble
+.LSOverride
+*.npz
+*.pt
