@@ -36,17 +36,19 @@ There are several commandline arguments that can be specified when training.
 
 
 
-### SimCls
+### SimCLS
 
-## 1. How to Install
+#### 1. How to Install
 
-### Requirements
+##### Requirements
+
 - `python3`
 - `conda create --name env --file spec-file.txt`
 - `pip3 install -r requirements.txt`
 - `compare_mt` -> https://github.com/neulab/compare-mt
 
-### Description of Codes
+##### Description of Codes
+
 - `main.py` -> training scorer model
 - `model.py` -> models
 - `data_utils.py` -> dataloader
@@ -56,15 +58,17 @@ There are several commandline arguments that can be specified when training.
 - `finetune_model.py` -> finetune your own generative model
 - `evaluate_model.py` -> evalualte model with trained scorer
 
-### Workspace
+##### Workspace
+
 Following directories should be created for our experiments.
 - `./cache` -> storing model checkpoints
-## 2. Dataset
+#### 2. Dataset
+
 Need to know that the dataset in this repo [clean_covid.csv](clean_covid.csv) is just a sample dataset only contain 10000 records, if you want to access to the full data, please refer to the following link.
 
 - [The COVID-19 Open Research Dataset.](https://learn.microsoft.com/en-us/azure/open-datasets/dataset-covid-19-open-research?tabs=azure-storage)
 
-## 3. Generating candidates
+#### 3. Generating candidates
 
 To generate candidates please run:
 ```
@@ -85,29 +89,34 @@ python preprocess.py --src_dir [path of the raw data] --tgt_dir [output path] --
 
 The preprocessing precedure will store the processed data as seperate json files in `tgt_dir`.
 
-## 4. scorer training
+#### 4. scorer training
 
-### Hyper-parameter Setting
+##### Hyper-parameter Setting
+
 You may specify the hyper-parameters in `main.py`.
 
-### Train
+##### Train
+
 ```
 python main.py --cuda --gpuid [list of gpuid] -l
 ```
-### Fine-tune
+##### Fine-tune
+
 ```
 python main.py --cuda --gpuid [list of gpuid] -l --model_pt [model path]
 ```
 model path should be a subdirectory in the `./cache` directory, e.g. `cnndm/model.pt` (it shouldn't contain the prefix `./cache/`).
 
-### Evaluate
+##### Evaluate
+
 ```
 python evaluate_model.py --generator_name {args.generator_name} --dataset_name {args.dataset_name} --scorer_path cache/22-12-17-0/scorer.bin --dataset_percent 10
 ```
 
 
 
-# Results
+## Results
+
 ---
 
 ### ResneXt
@@ -186,7 +195,8 @@ With the same batch size, checkpoint does not affect loss and accuracy. By runni
 
 Change number of workers didn't change training loss, but add checkpointing and change to half precision can decrease the training loss, This is argely because random state and the model is underfitting.
 
-### RoBERTa training detail
+#### RoBERTa training detail
+
 |        | BaseLine | 0 workers | 1 workers | 4 workers | 8 workers | Half precision | Checkpointing | 
 | ------ | ------------- | --------- | ---------- | ------- | ---------- | -------------- | ------------------ | 
 | Data loading time | 2.23       | 2.79   | 2.34    | 2.27  | 2.25    | 2.41       | 2.34           |
@@ -194,7 +204,8 @@ Change number of workers didn't change training loss, but add checkpointing and 
 | Training Loss(ranking loss) | 0.28       | 0.28  | 0.28    | 0.28  | 0.28    | 0.2         |. 0.2          | 
 | Total training time(s) | 6748.42        | 6848.11    | 6736.93     | 6724.27  | 6728.31     |5067.59        | 9619.41       | 
 
-### SimCLS ROUGE score
+#### SimCLS ROUGE score
+
 |        | Before SimCLS | 0 workers | 1 workers |2 workers  |4 workers | 8 workers | Half precision | Checkpointing | 
 | ------ | ------------- | --------- | ----------|-------  |------- | ---------- | -------------- | ------------------ | 
 | ROUGE-1 | 0.4267       | 0.4245    | 0.4245    | 0.4245  | 0.4245 | 0.4245    | 0.4283       | 0.4281           |
