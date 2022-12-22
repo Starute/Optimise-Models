@@ -182,7 +182,7 @@ With the same batch size, checkpoint does not affect loss and accuracy. By runni
 
 ### SimCLS
 
-
+![Training Loss for different experiment setup]("image/ace186ba-ae34-47f7-9069-64472cd1583d.png")
 
 
 
