@@ -184,7 +184,22 @@ With the same batch size, checkpoint does not affect loss and accuracy. By runni
 
 ![Training Loss for different experiment setup](image/ace186ba-ae34-47f7-9069-64472cd1583d.png)
 
+Change number of workers didn't change training loss, but add checkpointing and change to half precision can decrease the training loss, This is argely because random state and the model is underfitting.
 
+### RoBERTa training detail
+|        | BaseLine | 0 workers | 1 workers | 4 workers | 8 workers | Half precision | Checkpointing | 
+| ------ | ------------- | --------- | ---------- | ------- | ---------- | -------------- | ------------------ | 
+| Data loading time | 2.23       | 2.79   | 2.34    | 2.27  | 2.25    | 2.41       | 2.34           |
+| Optimize time(ms) | 33       | 33    | 33     | 33 | 33     | 25        | 42            | 
+| Training Loss(ranking loss) | 0.28       | 0.28  | 0.28    | 0.28  | 0.28    | 0.2         |. 0.2          | 
+| Total training time(s) | 6748.42        | 6848.11    | 6736.93     | 6724.27  | 6728.31     |5067.59        | 9619.41       | 
+
+### SimCLS ROUGE score
+|        | Before SimCLS | 0 workers | 1 workers |2 workers  |4 workers | 8 workers | Half precision | Checkpointing | 
+| ------ | ------------- | --------- | ----------|-------  |------- | ---------- | -------------- | ------------------ | 
+| ROUGE-1 | 0.4267       | 0.4245    | 0.4245    | 0.4245  | 0.4245 | 0.4245    | 0.4283       | 0.4281           |
+| ROUGE-2 | 0.2223       | 0.2095    | 0.2095    | 0.2095  | 0.2095 | 0.2095     | 0.2093        | 0.2126            | 
+| ROUGE-L | 0.3659       | 0.3573    | 0.3573    | 0.3573  | 0.3573 | 0.3573   | 0.3603        | 0.3608         | 
 
 
 
